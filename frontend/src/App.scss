@@ -21,3 +21,19 @@
 .steps-content {
   margin-top: 24px;
 }
+
+.pricing-actions {
+  display: flex;
+  justify-content: space-between;
+
+  &__right {
+    display: flex;
+    & > button {
+      margin-left: 20px;
+    }
+
+    & > h3 {
+      line-height: 34px;
+    }
+  }
+}

@@ -3,6 +3,8 @@ import Dragger from 'antd/lib/upload/Dragger';
 import * as React from 'react';
 import { Component } from 'react';
 
+import { API_ENDPOINT } from '../config';
+
 interface Props {
   onChange: (info: any) => void;
 }
@@ -17,7 +19,7 @@ interface State {
 export class UploadFile extends Component<Props, State> {
   public state = {
     accept: '.stl',
-    action: '//jsonplaceholder.typicode.com/posts/',
+    action: API_ENDPOINT + 'api/upload', // TODO: Extract to a global config of some sort
     multiple: false,
     name: 'file'
   };

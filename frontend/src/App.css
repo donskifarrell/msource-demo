@@ -19,3 +19,17 @@
 .steps-content {
   margin-top: 24px;
 }
+
+.pricing-actions {
+  display: flex;
+  justify-content: space-between;
+}
+.pricing-actions__right {
+  display: flex;
+}
+.pricing-actions__right > button {
+  margin-left: 20px;
+}
+.pricing-actions__right > h3 {
+  line-height: 34px;
+}

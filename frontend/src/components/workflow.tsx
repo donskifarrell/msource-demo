@@ -1,4 +1,5 @@
-import { Steps } from 'antd';
+import { Icon, Steps } from 'antd';
+import Button from 'antd/lib/button/button';
 import * as React from 'react';
 import { Component } from 'react';
 import { UploadFile } from './upload-file';
@@ -6,6 +7,8 @@ const Step = Steps.Step;
 
 interface State {
   current: STEP;
+  updatingPrice: boolean;
+  quotePrice: number;
 }
 
 enum STEP {
@@ -18,7 +21,9 @@ export class Workflow extends Component<{}, State> {
   constructor(props: any) {
     super(props);
     this.state = {
-      current: STEP.UPLOAD
+      current: STEP.UPLOAD,
+      quotePrice: 0,
+      updatingPrice: false
     };
   }
 
@@ -33,57 +38,60 @@ export class Workflow extends Component<{}, State> {
         </Steps>
 
         <div className="steps-content">
-          {this.state.current === STEP.CONFIRM
-            ? this.renderConfirmStep()
-            : this.state.current === STEP.PRICING
-              ? this.renderPricingStep()
-              : this.renderUploadStep()}
+          {this.state.current === STEP.CONFIRM ? (
+            this.renderConfirmStep()
+          ) : this.state.current === STEP.PRICING ? (
+            this.renderPricingStep()
+          ) : (
+            <UploadFile onChange={this.uploadFileHandler} />
+          )}
         </div>
-        {/* <div className="steps-action">
-          {this.state.current < steps.length - 1 && (
-            <Button type="primary" onClick={this.next}>
-              Next
-            </Button>
-          )}
-          {this.state.current === steps.length - 1 && (
-            <Button
-              type="primary"
-              onClick={() => message.success('Processing complete!')}
-            >
-              Done
-            </Button>
-          )}
-          {this.state.current > 0 && (
-            <Button style={{ marginLeft: 8 }} onClick={this.prev}>
-              Previous
-            </Button>
-          )}
-        </div> */}
       </div>
     );
   }
 
-  private renderUploadStep = () => {
-    return <UploadFile onChange={this.uploadFileHandler} />;
-  };
-
   private renderPricingStep = () => {
-    return <div>PRICING</div>;
+    return (
+      <div className="pricing-actions">
+        <Button type="primary" onClick={() => this.to(STEP.UPLOAD)}>
+          <Icon type="left" />Back
+        </Button>
+
+        <div className="pricing-actions__right">
+          <h3>
+            Latest Quote:{' '}
+            <strong>
+              {this.state.quotePrice.toLocaleString(
+                'en-GB',
+                { style: 'currency', currency: 'GBP' }
+              )}
+            </strong>
+          </h3>
+          <Button
+            type="danger"
+            loading={this.state.updatingPrice}
+            onClick={this.getPricingQuote}
+          >
+            Refresh Quote
+          </Button>
+
+          <Button type="primary" onClick={() => this.to(STEP.CONFIRM)}>
+            Confrm<Icon type="right" />
+          </Button>
+        </div>
+      </div>
+    );
   };
 
   private renderConfirmStep = () => {
-    return <div>COnfirm</div>;
+    return (
+      <div className="pricing-actions">
+        <Button type="primary" onClick={() => this.to(STEP.PRICING)}>
+          <Icon type="left" />Back
+        </Button>
+      </div>
+    );
   };
-
-  // private next = () => {
-  //   const current = this.state.current + 1;
-  //   this.setState({ current });
-  // };
-
-  // private prev = () => {
-  //   const current = this.state.current - 1;
-  //   this.setState({ current });
-  // };
 
   private uploadFileHandler = (info: any) => {
     const status = info.file.status;
@@ -98,5 +106,14 @@ export class Workflow extends Component<{}, State> {
       // tslint:disable-next-line:no-console
       console.log(`${info.file.name} file upload failed.`);
     }
+    this.setState({ current: STEP.PRICING });
+  };
+
+  private getPricingQuote = () => {
+    this.setState({ quotePrice: 100.97 });
+  };
+
+  private to = (step: STEP) => {
+    this.setState({ current: step });
   };
 }

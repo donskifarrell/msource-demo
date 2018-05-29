@@ -3,7 +3,6 @@ import * as React from 'react';
 import { Breadcrumb, Layout } from 'antd';
 const { Header, Content, Footer } = Layout;
 
-import Divider from 'antd/lib/divider';
 import { Uploads } from './components/uploads';
 import { Workflow } from './components/workflow';
 
@@ -15,13 +14,13 @@ class App extends React.Component {
       <Layout className="layout">
         <Header>
           <div className="logo">
-            <img src={process.env.PUBLIC_URL + '/app-logo-black.png'} />
+            <img src={location.href + '/app-logo-black.png'} />
           </div>
         </Header>
         <Content style={{ padding: '0 50px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>3D Printing</Breadcrumb.Item>
-            <Breadcrumb.Item>Pricing</Breadcrumb.Item>
+            <Breadcrumb.Item>Get a Quote</Breadcrumb.Item>
           </Breadcrumb>
           <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
             <Uploads
@@ -29,8 +28,8 @@ class App extends React.Component {
                 return (
                   <>
                     <Workflow />
-                    <Divider orientation="left">Previous uploads</Divider>
                     {/* TODO: List of previous uploads */}
+                    {/* <Divider orientation="left">Previous uploads</Divider> */}
                   </>
                 );
               }}
