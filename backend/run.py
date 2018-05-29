@@ -11,8 +11,8 @@ UPLOAD_FOLDER = '/tmp/'
 ALLOWED_EXTENSIONS = set(['stl'])
 
 app = Flask(__name__,
-            static_folder="./frontend/build/static",
-            template_folder="./frontend/build")
+            static_folder="../frontend/build/static",
+            template_folder="../frontend/build")
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 

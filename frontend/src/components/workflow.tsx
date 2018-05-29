@@ -13,8 +13,7 @@ interface State {
 
 enum STEP {
   UPLOAD,
-  PRICING,
-  CONFIRM
+  QUOTE
 }
 
 export class Workflow extends Component<{}, State> {
@@ -33,14 +32,11 @@ export class Workflow extends Component<{}, State> {
       <div>
         <Steps current={current}>
           <Step key={STEP.UPLOAD} title="Upload .STL file" />
-          <Step key={STEP.PRICING} title="Pricing" />
-          <Step key={STEP.CONFIRM} title="Confirm" />
+          <Step key={STEP.QUOTE} title="Quote" />
         </Steps>
 
         <div className="steps-content">
-          {this.state.current === STEP.CONFIRM ? (
-            this.renderConfirmStep()
-          ) : this.state.current === STEP.PRICING ? (
+          {this.state.current === STEP.QUOTE ? (
             this.renderPricingStep()
           ) : (
             <UploadFile onChange={this.uploadFileHandler} />
@@ -74,39 +70,14 @@ export class Workflow extends Component<{}, State> {
           >
             Refresh Quote
           </Button>
-
-          <Button type="primary" onClick={() => this.to(STEP.CONFIRM)}>
-            Confrm<Icon type="right" />
-          </Button>
         </div>
       </div>
     );
   };
 
-  private renderConfirmStep = () => {
-    return (
-      <div className="pricing-actions">
-        <Button type="primary" onClick={() => this.to(STEP.PRICING)}>
-          <Icon type="left" />Back
-        </Button>
-      </div>
-    );
-  };
-
   private uploadFileHandler = (info: any) => {
-    const status = info.file.status;
-    if (status !== 'uploading') {
-      // tslint:disable-next-line:no-console
-      console.log(info.file, info.fileList);
-    }
-    if (status === 'done') {
-      // tslint:disable-next-line:no-console
-      console.log(`${info.file.name} file uploaded successfully.`);
-    } else if (status === 'error') {
-      // tslint:disable-next-line:no-console
-      console.log(`${info.file.name} file upload failed.`);
-    }
-    this.setState({ current: STEP.PRICING });
+    // TODO: Error handling on bad uploads
+    this.setState({ current: STEP.QUOTE });
   };
 
   private getPricingQuote = () => {

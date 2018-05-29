@@ -16,6 +16,12 @@
   background: #0e64b7;
 }
 
+.ant-layout-content {
+  max-width: 1024px;
+  width: 100%;
+  margin: 0 auto;
+}
+
 .steps-content {
   margin-top: 24px;
 }

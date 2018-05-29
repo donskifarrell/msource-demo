@@ -5,7 +5,8 @@ interface Props {
 }
 
 export class Uploads extends Component<Props> {
+  // Potentially previous uploads can appear
   public render() {
-    return this.props.render(['upload first', 'second upload']);
+    return this.props.render([]);
   }
 }
