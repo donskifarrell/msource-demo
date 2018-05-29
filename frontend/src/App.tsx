@@ -1,20 +1,46 @@
 import * as React from 'react';
-import './App.css';
 
-import logo from './logo.svg';
+import { Breadcrumb, Layout } from 'antd';
+const { Header, Content, Footer } = Layout;
+
+import Divider from 'antd/lib/divider';
+import { Uploads } from './components/uploads';
+import { Workflow } from './components/workflow';
+
+import './App.css';
 
 class App extends React.Component {
   public render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
+      <Layout className="layout">
+        <Header>
+          <div className="logo">
+            <img src={process.env.PUBLIC_URL + '/app-logo-black.png'} />
+          </div>
+        </Header>
+        <Content style={{ padding: '0 50px' }}>
+          <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb.Item>3D Printing</Breadcrumb.Item>
+            <Breadcrumb.Item>Pricing</Breadcrumb.Item>
+          </Breadcrumb>
+          <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
+            <Uploads
+              render={prevUploads => {
+                return (
+                  <>
+                    <Workflow />
+                    <Divider orientation="left">Previous uploads</Divider>
+                    {/* TODO: List of previous uploads */}
+                  </>
+                );
+              }}
+            />
+          </div>
+        </Content>
+        <Footer style={{ textAlign: 'center' }}>
+          Manufacturing Source Demo ©2018 Created by Donal Farrell
+        </Footer>
+      </Layout>
     );
   }
 }
