@@ -28,18 +28,33 @@
   margin-top: 24px;
 }
 
-.pricing-actions {
-  display: flex;
-  justify-content: space-between;
+.pricing {
+  &-details {
+    margin: 18px 0;
 
-  &__right {
-    display: flex;
-    & > button {
-      margin-left: 20px;
+    .ant-card {
+      min-height: 100px;
     }
 
-    & > h3 {
-      line-height: 34px;
+    .ant-spin {
+      margin: 0 auto;
+      width: 100%;
+    }
+  }
+
+  &-actions {
+    display: flex;
+    justify-content: space-between;
+
+    &__right {
+      display: flex;
+      & > button {
+        margin-left: 20px;
+      }
+
+      & > h3 {
+        line-height: 34px;
+      }
     }
   }
 }

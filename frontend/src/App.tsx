@@ -6,6 +6,7 @@ const { Header, Content, Footer } = Layout;
 import { Uploads } from './components/uploads';
 import { Workflow } from './components/workflow';
 
+import logo from './app-logo-black.png';
 import './App.css';
 
 class App extends React.Component {
@@ -14,7 +15,7 @@ class App extends React.Component {
       <Layout className="layout">
         <Header>
           <div className="logo">
-            <img src={location.href + '/app-logo-black.png'} />
+            <img src={logo} />
           </div>
         </Header>
         <Content style={{ padding: '0 50px' }}>
