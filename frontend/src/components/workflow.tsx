@@ -101,28 +101,58 @@ export class Workflow extends Component<{}, State> {
                 }
               />
             ) : (
+              // UGH!!!! - Had to add the extra checks as the backend sometime returns empty data. Fixable, but this is rushed..
               <>
                 <h3>Filament</h3>
-                <div>Layers: {this.state.quote.details.filament.layers}</div>
-                <div>Length: {this.state.quote.details.filament.length}</div>
+                <div>
+                  Layers:{' '}
+                  {this.state.quote &&
+                  this.state.quote.details &&
+                  this.state.quote.details.filament
+                    ? this.state.quote.details.filament.layers
+                    : 'N/A'}
+                </div>
+                <div>
+                  Length:{' '}
+                  {this.state.quote &&
+                  this.state.quote.details &&
+                  this.state.quote.details.filament
+                    ? this.state.quote.details.filament.length
+                    : 'N/A'}
+                </div>
                 <br />
                 <h3>Duration</h3>
-                <div>{this.state.quote.details.duration} hours</div>
+                <div>
+                  {this.state.quote && this.state.quote.details
+                    ? this.state.quote.details.duration
+                    : 'N/A'}{' '}
+                  hours
+                </div>
                 <br />
                 <h3>Costs</h3>
                 <div>
                   Material Cost:{' '}
-                  {this.state.quote.details.costs.material.toLocaleString(
-                    'en-GB',
-                    { style: 'currency', currency: 'GBP' }
-                  )}
+                  {this.state.quote &&
+                  this.state.quote.details &&
+                  this.state.quote.details.costs &&
+                  this.state.quote.details.costs.material
+                    ? this.state.quote.details.costs.material.toLocaleString(
+                        'en-GB',
+                        { style: 'currency', currency: 'GBP' }
+                      )
+                    : 'N/A'}
                 </div>
                 <div>
                   Time Cost:{' '}
-                  {this.state.quote.details.costs.time.toLocaleString(
-                    'en-GB',
-                    { style: 'currency', currency: 'GBP' }
-                  )}
+                  {this.state.quote &&
+                  this.state.quote.details &&
+                  this.state.quote.details.costs &&
+                  this.state.quote.details.costs.time
+                    ? this.state.quote.details.costs.time.toLocaleString(
+                        'en-GB',
+                        { style: 'currency', currency: 'GBP' }
+                      )
+                    : 'N/A'}
                 </div>
               </>
             )}
@@ -164,7 +194,7 @@ export class Workflow extends Component<{}, State> {
         // tslint:disable-next-line:no-console
         console.log(data);
 
-        if (data.state !== 'SUCCESS') {
+        if (this.state.current === STEP.QUOTE && data.state !== 'SUCCESS') {
           setTimeout(this.getQuoteDetails, 1000);
         } else {
           this.setState({ quote: data, hasQuote: true });
