@@ -56,7 +56,7 @@ export class UploadFile extends Component<Props, State> {
       return;
     }
 
-    if (!acceptedFiles[0].name.endsWith('.stl')) {
+    if (!acceptedFiles[0].name.toLowerCase().endsWith('.stl')) {
       return;
     }
 
