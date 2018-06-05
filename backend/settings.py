@@ -1,4 +1,5 @@
 
+SLICER_PATH = '/Applications/Slic3r.app/Contents/MacOS/slic3r'
 REDIS_SERVER_URL = 'localhost'
 CELERY_BROKER_HOST = 'redis://%s:6379' % (REDIS_SERVER_URL)
 UPLOAD_FOLDER = 'uploads/'

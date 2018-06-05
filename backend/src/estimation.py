@@ -4,14 +4,14 @@ import re
 import subprocess
 
 from src import helpers, gcoder
-from settings import UPLOAD_FOLDER, PRICE_PER_HOUR, PRICE_PER_GRAM
+from settings import SLICER_PATH, UPLOAD_FOLDER, PRICE_PER_HOUR, PRICE_PER_GRAM
 
 
 def convert_stl_to_gcode(filename):
     print('Function::convert_stl_to_gcode')
 
-    slicer_settings = ['/Applications/Slic3r.app/Contents/MacOS/slic3r',
-                       "--load", "cfg.ini", os.path.join('uploads/', filename)]
+    slicer_settings = [SLICER_PATH,
+                       "--load", "cfg.ini", os.path.join(UPLOAD_FOLDER, filename)]
     slicer_output = subprocess.check_output(slicer_settings)  # Blocking
     print(slicer_output)
 
